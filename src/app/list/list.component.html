@@ -1,0 +1,26 @@
+<div class="p-5">
+    <div class="py-2">
+        <button class="btn btn-primary" routerLink="../">New upload</button>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Filename</th>
+                <th>Filesize</th>
+                <th>DateTime</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let file of files; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{file.name}}</td>
+                <td>{{file.size}} bytes</td>
+                <td>{{file?.dateTime | date: 'dd.MM.yyyy HH:mm'}}</td>
+            </tr>
+            <tr *ngIf="!files.length">
+                <td class="text-center" colspan="100">No files uploaded!</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
