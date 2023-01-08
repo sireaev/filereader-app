@@ -28,13 +28,31 @@ export class UploadingComponentComponent {
    * @param event Dropzone event
    */
   onSelect(event: DropZoneFile) {
-    const fileReader: FileReader = new FileReader();
-    event.addedFiles.map((el: any) => {
-      fileReader.onloadend = function(x) {
-        el['fileContent'] = fileReader.result?.slice(0,500);
-      }
-      fileReader.readAsText(el);
+    // Trying to get ReadableStream as Blob and slice blob files while reading
+    // after assigining readed stream to fileContent
+    // without reading the whole file
+    const streamToText = async (blob: ReadableStream) => {
+      const readableStream = await blob.getReader();
+      const chunk = await readableStream.read();
+
+      return new TextDecoder('utf-8').decode(chunk.value);
+    };
+
+    event.addedFiles.map(async(el: any) => {
+      const fileSliceBlob = el.slice(0, 500);
+      const fileSliceBlobStream = await fileSliceBlob.stream();
+      el['fileContent'] = await streamToText(fileSliceBlobStream)
+      return el;
     })
+
+    // Trying to read the whole file from memory and slice
+    // const fileReader: FileReader = new FileReader();
+    // event.addedFiles.map((el: any) => {
+    //   fileReader.onloadend = function(x) {
+    //     el['fileContent'] = fileReader.result?.slice(0,500);
+    //   }
+    //   fileReader.readAsText(el);
+    // })
     this.files.push(...event.addedFiles);
   }
   
