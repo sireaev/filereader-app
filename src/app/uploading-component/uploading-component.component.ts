@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DropZoneFile } from '../models/dropzone-file.model';
 import { MyFile } from '../models/my-file.model';
@@ -6,19 +6,15 @@ import { FileService } from '../services/file.service';
 
 @Component({
   selector: 'app-uploading-component',
-  templateUrl: './uploading-component.component.html',
-  styleUrls: ['./uploading-component.component.scss']
+  templateUrl: './uploading-component.component.html'
 })
-export class UploadingComponentComponent {
+export class UploadingComponent {
+  @Input() parameter: string;
   files: MyFile[] = [];
   maxFileSize = 2000000000; // 2GB
-  constructor(private readonly fileService: FileService,
+  constructor(public readonly fileService: FileService,
               private readonly router: Router,
               private readonly route: ActivatedRoute) {}
-
-  get disableClick() {
-    return this.files.length ? true : false;
-  }
 
   /**
    * The file is read from Dropzone event,

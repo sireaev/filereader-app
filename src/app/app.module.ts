@@ -4,14 +4,14 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UploadingComponentComponent } from './uploading-component/uploading-component.component';
+import { UploadingComponent } from './uploading-component/uploading-component.component';
 import { ListComponent } from './list/list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UploadingComponentComponent,
+    UploadingComponent,
     ListComponent
   ],
   imports: [

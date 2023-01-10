@@ -5,8 +5,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class FileService {
-  files: BehaviorSubject<File[]|null> = new BehaviorSubject<File[]|null>(null); 
-  constructor() { }
+  private readonly files: BehaviorSubject<File[]|null> = new BehaviorSubject<File[]|null>(null); 
+  readonly files$ = this.files.asObservable();
+  constructor() {}
 
   save(files: File[]): void {
     this.files.next(files);

@@ -1,5 +1,5 @@
 <div class="p-5">
-    <ngx-dropzone [disableClick]="disableClick" [maxFileSize]="maxFileSize" accept=".txt" (change)="onSelect($event)">
+    <ngx-dropzone [disableClick]="!!files.length" [maxFileSize]="maxFileSize" accept=".txt" (change)="onSelect($event)">
         <ngx-dropzone-label>Drag your txt files here (MAX 2GB)</ngx-dropzone-label>
         <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
             <ngx-dropzone-label>{{ f.name }} ({{ f.type }}) <br> ({{f?.fileContent | slice: 0 : 10}}...)</ngx-dropzone-label>
